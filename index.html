@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html leng="pt-br">
+	<head>
+
+		<title>3d-dynamic</title>
+		<meta charset="utf-8">
+		<!-- <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="css/stilo.css">
+		<link rel="stylesheet" type="text/css" href="icones/css/fontello.css">
+	</head>
+<header class="menupg">	
+	<div id="sup" class="sup">
+		<table>
+		    <tr>
+		        <td class="title">layer</td>
+		        <td id="Layer" class="value"><input id="id|input|Menu|Layer" value="moveis" /></td>
+		        <td><span ><i onclick="toogle('id|div|Layer')" class="icon-down"></i></span></td>
+		        <td class="title">componente</td>
+		        <td id="nome_comp" class="value"><input id="id|input|componente" value="armario" /></td>
+		        <!-- <td class="logo"><span ><i onclick="display('componente')" class="icon-drop_dawn"></i></span></td> -->
+		    </tr>
+		</table>
+	</div>
+	<div class="bt">
+		<input type="checkbox" id="btn_menu">
+			<label for="btn_menu" onclick="toogle('menu')">
+			<span class="icone"><i class="icon-menu1" ></i></span>
+		</label>
+	</div>
+	<div id="menu">
+		<nav class="menu">
+			<ul id="pg">
+				<!-- <li><a href="#" onclick="display('componente')">chapas</a></li>
+				<li><a href="#" onclick="display('componente')">pedras</a></li>
+				<li><a href="#" onclick="display('componente')">vidros</a></li>
+				<li><a href="#" onclick="display('componente')">metais</a></li>
+				<li><a href="#" onclick="display('componente')">modulos</a></li> -->
+				<!-- <li><a href="#" onclick="display('perfil')">perfil</a></li> -->
+			</ul>
+		</nav>
+	</div>
+</header>
+<body id="corpo" class="corpo"  onload="iniciar()">
+	<div class="linha" id="linha">
+
+	</div>	
+	<script src="javascript/jquery-3.1.0.slim.min.js"></script>	
+	<script src="javascript/criar.js"></script>
+	<!-- <script src="javascript/get.js"></script>	
+	<script src="javascript/script.js"></script> -->
+	</body>
+</html>
