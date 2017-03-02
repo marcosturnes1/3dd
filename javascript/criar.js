@@ -205,7 +205,7 @@ function criarpg(str_path){
 			}else{
 				 document.getElementById("id|div|"+tp+"|"+pg+"|"+lg).style.display = 'none';
 			}
-			// window.location.href = 'skp:teste@fim   ';
+			 window.location.href = 'skp:teste@fim   ';
 			};
 function display(arr_display) {
 			var on = arr_display.pop();
@@ -256,3 +256,4 @@ function toogle(id) {
 		}
 		// window.location.href = 'skp:get_t@'+ "criar.js toogle ________________________";
 		};
+		
