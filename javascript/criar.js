@@ -2,7 +2,7 @@ function iniciar() {
 	 window.location.href = 'skp:inicio@' + "iniciar";
 	 };
 function criarpg(str_path){
-			window.location.href = 'skp:teste@     ' +str_path;
+			// window.location.href = 'skp:teste@     ' +str_path;
 			
 			var arr=str_path.split("/");
 			var comp=arr.length;
@@ -205,7 +205,7 @@ function criarpg(str_path){
 			}else{
 				 document.getElementById("id|div|"+tp+"|"+pg+"|"+lg).style.display = 'none';
 			}
-			window.location.href = 'skp:teste@fim   ';
+			// window.location.href = 'skp:teste@fim   ';
 			};
 function display(arr_display) {
 			var on = arr_display.pop();
