@@ -281,6 +281,7 @@ function esp(arr_config){
 			ele=document.createElement("div");
 			ele.setAttribute("class","pag");
 			ele.setAttribute("id","id|div|"+pg);
+			ele.setAttribute("onclick","toggle('id|div|"+pg+"')");
 			pos=document.getElementById("linha");             
 			pos.appendChild(ele);
 
@@ -291,7 +292,7 @@ function esp(arr_config){
 
 			ele=document.createElement("a");
 			ele.setAttribute("id", 'id|a|menu|'+pg);
-			ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
+			//ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
 			ele.innerHTML=pg; 
 			pos=document.getElementById("id|li|menu|"+pg);
 			pos.appendChild(ele);
@@ -402,23 +403,25 @@ function config(arr){
 			var cont=0;
 			var pg="Configurações";
 			var menu=true;
+			
 			var dpg=document.getElementById("id|div|"+pg);
 			if (dpg==null){ 
-
-			pos=document.createElement("div");
-			pos.setAttribute("class","pag");
-			pos.setAttribute("id","id|div|"+pg);
+			ele=document.createElement("div");
+			ele.setAttribute("class","pag");
+			ele.setAttribute("id","id|div|"+pg);
 			pos=document.getElementById("linha");
-			pos.appendChild(pos);
+			pos.appendChild(ele);
 
 			ele=document.createElement("li");
 			ele.setAttribute("id","id|li|menu|"+pg);
+			ele.setAttribute("onclick","toggle('id|div|"+pg+"')");
 			pos=document.getElementById("pg");
 			pos.appendChild(ele);
+			window.location.href = 'skp:teste@criar.js config id|div|'+pg;
 
 			ele=document.createElement("a");
 			ele.setAttribute("id", 'id|a|menu|'+pg);
-			ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
+			//ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
 			ele.innerHTML=pg; 
 			var pos=document.getElementById("id|li|menu|"+pg);
 			pos.appendChild(ele);
@@ -558,12 +561,13 @@ function criar(path){
 
 			ele=document.createElement("li");
 			ele.setAttribute("id","id|li|menu|"+pg);
+			ele.setAttribute("onclick","toggle('id|div|"+pg+"')");
 			pos=document.getElementById("pg");
 			pos.appendChild(ele);
-
+			window.location.href = 'skp:teste@criar.js criar toggle  id|div|'+pg;
 			ele=document.createElement("a");
 			ele.setAttribute("id", 'id|a|menu|'+pg);
-			ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
+			//ele.setAttribute("onclick","getdisplay('id|div|"+pg+"')");
 			ele.innerHTML=pg; 
 			pos=document.getElementById("id|li|menu|"+pg);
 			pos.appendChild(ele);

@@ -63,3 +63,15 @@ function setthumbnail(path){
 function paginas(str) {
 	 window.location.href = 'skp:paginas@' + str;
 	 };
+
+
+
+
+
+//estao em testes
+function getmat(action) {
+	window.location.href = 'skp:teste@script.js getmat action' + action;
+	};
+function getdisplay(str) {
+	window.location.href = 'skp:teste@script.js getdisplay str'+str ;
+	};

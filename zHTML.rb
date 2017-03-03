@@ -189,7 +189,6 @@ def Webdialog()
 @my_dialog.add_action_callback("get_display"){|web_dialog1,retorno|
 			puts "html.rb get_display retorno #{retorno}"
 			@arr = retorno.split("|")
-			
 			if @arr[0]=="id" then 
 				if @arr[2]=="esp"then 
 					lista=["esp|esp_porta","esp|esp_fundo","esp|esp_chapa","esp|esp_tamp"]
