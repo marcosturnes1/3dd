@@ -105,7 +105,9 @@ h5{ text-align: center; color:rgba(157,255,212,1);font-size: 0.6em;text-transfor
 .Arquivo li:hover{border:3px solid rgba(157,255,212,1);cursor: pointer;background: #444;transition: all 0.3s ease-in-out 0s;}	
 /*.pag{position: relative;top: 3px;}*/
 /*.headpg {margin: 5px ; padding: 3px 5px;border:3px solid rgba(157,255,212,1); position: fixed;top:30px;height: auto;}*/
-.sub_menu li{background: #000000;}
+.sub_menu{background: #000000;z-index: 900;}
+.sub_menu a{position: relative; z-index: 900;margin-left: 25px; }
+.a_menu{position: relative; z-index: 900;}
 @media (max-width: 768px) {
 	fieldset{width:100%;height: auto;margin:0px;padding: 0px;}
 	header{width: 100%; }

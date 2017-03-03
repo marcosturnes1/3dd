@@ -16,19 +16,6 @@ function callback(name, data) {
 		window.location = "skp:objetos@" + name;
 	}, 0);
 	};
-function display(arr_display) {
-			window.location = "skp:teste@script.js display arr_display "+arr_display;
-			var on = arr_display.pop();
-			
-			for(var i = 0, length = arr_display.length; i < length; i++){
-			if (arr_display[i]!=on){
-				document.getElementById("id|div|"+arr_display[i]).style.display="none";
-			}else{
-				document.getElementById("id|div|"+arr_display[i]).style.display = 'block';
-			}
-			}
-
-			};
 function toogle(id) {
 		window.location = "skp:teste@script.js toggle id "+id;
 		var x = document.getElementById(id);
@@ -73,3 +60,6 @@ function setthumbnail(path){
 		// sleep(2000);
 		// window.location.href = 'skp:get_t@' +"setthumbnail  ________________________ ";
 		};
+function paginas(str) {
+	 window.location.href = 'skp:paginas@' + str;
+	 };

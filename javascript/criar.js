@@ -21,43 +21,26 @@ function pag(str_path){
 			if (linha==null){
 
 			ele=document.createElement("li");
-			ele.setAttribute("id","id|li|menu|"+tp);
+			ele.setAttribute("onclick","toogle('id|ul|menu|"+tp+"')");
+			ele.setAttribute("id","id|li|menu|"+tp);			
 			pos=document.getElementById("pg");
-			pos.appendChild(ele);
-
-			ele=document.createElement("tr");
-			ele.setAttribute("id","id|tr|menu|"+tp);
-			pos=document.getElementById("id|li|menu|"+tp);
-			pos.appendChild(ele);
-
-			ele=document.createElement("td");
-			ele.setAttribute("class","tdmenu");
-			ele.setAttribute("id","id|td1|menu|"+tp);
-			pos=document.getElementById("id|tr|menu|"+tp);
-			pos.appendChild(ele);
+			pos.appendChild(ele);			
 
 			ele=document.createElement("a");
-			ele.setAttribute("id", 'id|a|menu|'+tp);
-			ele.setAttribute("onclick","toggle('id|ul|menu|"+tp+"')");
+			ele.setAttribute("class",'a_menu');
+			ele.setAttribute("id",'id|a|menu|'+tp);
 			ele.innerHTML=tp; 
-			pos=document.getElementById("id|td1|menu|"+tp);
-			pos.appendChild(ele);
-
-			ele=document.createElement("td");
-			ele.setAttribute("class","td2_menu");
-			ele.setAttribute("id","id|td2|menu|"+tp);
-			pos=document.getElementById("id|tr|menu|"+tp);
-			pos.appendChild(ele);
+			pos=document.getElementById("id|li|menu|"+tp);
+			pos.appendChild(ele);		
 
 			ele=document.createElement("span");
 			ele.setAttribute("class","span_menu");
 			ele.setAttribute("id","id|span|menu|"+tp);
-			pos=document.getElementById("id|td2|menu|"+tp);
+			pos=document.getElementById('id|a|menu|'+tp);
 			pos.appendChild(ele);
 
 			ele=document.createElement("i");
 			ele.setAttribute("class","icon-down");
-			ele.setAttribute("onclick","toogle('id|ul|menu|"+tp+"')");
 			ele.setAttribute("id","id|i|menu|"+tp);
 			pos=document.getElementById("id|span|menu|"+tp);
 			pos.appendChild(ele);
@@ -76,18 +59,22 @@ function pag(str_path){
 			
 			ele=document.createElement("li");
 			ele.setAttribute("class","sub_menu")
-			ele.setAttribute("id","id|li|menu|"+tp+"|"+pg);
+			ele.setAttribute("onclick","toogle('id|div|"+tp+"|"+pg+"')");
+			ele.setAttribute("id","id|li|menu|"+tp+"|"+pg);			
 			pos=document.getElementById("id|ul|menu|"+tp);
-			pos.appendChild(ele);			
+			pos.appendChild(ele);
 
 			ele=document.createElement("a");
-			ele.setAttribute("id", 'id|a|menu|'+tp+"|"+pg);
-			ele.setAttribute("onclick","display('id|div|"+tp+"|"+pg+"')");
+			ele.setAttribute("class", 'a_menu');
+			ele.setAttribute("id",'id|a|menu|'+tp+"|"+pg);			
 			ele.innerHTML=pg; 
 			pos=document.getElementById("id|li|menu|"+tp+"|"+pg);
 			pos.appendChild(ele);
 			}
 		   	//comeca a criar a pagina 
+
+		   	window.location.href = "skp:paginas@id|div|"+tp+"|"+pg;
+
 			ele=document.createElement("div");
 			ele.setAttribute("class","pag");
 			ele.setAttribute("id","id|div|"+tp+"|"+pg);
@@ -128,7 +115,6 @@ function pag(str_path){
 			ele.setAttribute("id","id|b|"+tp+"|"+pg);
 			pos=document.getElementById("id|legend|"+tp+"|"+pg);
 			pos.appendChild(ele);
-
 			
 			}
 			var legend=document.getElementById("id|input|"+tp+"|"+pg+"|"+lg);

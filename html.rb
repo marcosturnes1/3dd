@@ -11,9 +11,14 @@ require_relative 'dados.rb'
 class Html 
 	def initialize
 
-		@arr_layer = [];@pastas = [];@arr_leg = [];@menu="menu"
+		@arr_layer = [];@pastas = [];@arr_leg = [];
 		@list_esp = [];@list_config = [];@input = []
 		@nome_comp = [];@layer = [];@pgs = []
+		@arr_toggle = ["menu","id|ul|menu|Materiais","id|ul|menu|Faces",
+			"id|ul|menu|Objetos","id|ul|menu|Objetos_Perfurantes","id|div|Layer"]
+		@paginas = [];
+
+
 
 		@path_thumbnail =__dir__+"/icones/temp/thumbnail.png"
 		@path_img_padrao=__dir__+"/icones/temp/padrao.png"
@@ -108,8 +113,8 @@ class Html
 		}
 		
 		@arr_leg.each{|id|arr1 = id.split("|");@pgs<<arr1[1]}    			
-	    @pg_inicio=@pgs.uniq!
-	    @pg_inicio<<@pgs[0]
+	    @pg_inicio = @pgs.uniq!
+	    @pg_inicio << @pgs[0]
 
 	    #@list_img.each{|path|@pag<<pg if !@pag.include?pg}
 
@@ -120,8 +125,8 @@ def Webdialog()
 
 
 	@dialog.add_action_callback("inicio"){|web_dialog1,retorno|
-	puts "html.rb inicio #{retorno}"
-	case retorno
+		puts "html.rb inicio #{retorno}"
+		case retorno
 		when "iniciar"
 			@modo = retorno
 			if @dialog.visible?
@@ -133,16 +138,14 @@ def Webdialog()
 		@dialog.execute_script("esp("+@list_esp.to_s+ ")")
 		@dialog.execute_script("config("+@list_config.to_s+ ")")
 		@dialog.execute_script("criar("+@path_img_padrao.inspect+ ")")
-		@arr_layer.each{|arr|@dialog.execute_script("dropdown("+arr.to_s+ ")")}
-
-		@dialog.execute_script("display("+ @pg_inicio.to_s+ ")")
-		@dialog.execute_script("toogle("+@menu.inspect+ ")")
+		@arr_layer.each{|arr|@dialog.execute_script("dropdown("+arr.to_s+ ")")}		
+		@paginas.each{|str|@dialog.execute_script("toogle("+str.inspect+ ")")}
+		@arr_toggle.each{|str|@dialog.execute_script("toogle("+str.inspect+ ")")}
 		
-		
-	@modo = "uso"
-	end
-	}
-
+		@modo = "uso"
+		end
+		}
+	@dialog.add_action_callback("paginas"){|dialog,ret|	@paginas<<ret}
 	@dialog.add_action_callback("digito"){|dialog,ret|
 		puts "html.rb digito  #{ret.inspect}"
 		if @id_retorno != ret then
