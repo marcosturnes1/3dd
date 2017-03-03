@@ -796,14 +796,13 @@ function dropdown(arr){
 		var layer1=document.getElementById("id|div|"+pg);
 		var div=document.createElement("div");
 		if (layer1==null){ 
+			
 		ele=document.createElement("div");
 		ele.setAttribute("id","id|div|"+pg);
 		ele.setAttribute("class",pg);
 		pos=document.getElementById(id);
-window.location.href = 'skp:teste@15   '+pg+"     "+id;		
 		pos.appendChild(ele);
 		}
-		window.location.href = 'skp:teste@2   ';
 		var lilayer=document.getElementById("id|li|"+pg+"|"+li);
 		if (lilayer==null){
 		
@@ -811,7 +810,7 @@ window.location.href = 'skp:teste@15   '+pg+"     "+id;
 		ele.setAttribute("id","id|li|"+pg+"|"+li);
 		pos=document.getElementById("id|div|"+pg);
 		pos.appendChild(ele);
-		window.location.href = 'skp:teste@3   ';
+
 		ele=document.createElement("a");
 		ele.setAttribute("id", 'id|a|'+pg+"|"+li);
 		ele.setAttribute("onclick","setdropdown('"+id1+"|"+li+"')");

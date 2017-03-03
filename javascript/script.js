@@ -17,6 +17,7 @@ function callback(name, data) {
 	}, 0);
 	};
 function display(arr_display) {
+			window.location = "skp:teste@script.js display arr_display "+arr_display;
 			var on = arr_display.pop();
 			
 			for(var i = 0, length = arr_display.length; i < length; i++){
@@ -26,9 +27,10 @@ function display(arr_display) {
 				document.getElementById("id|div|"+arr_display[i]).style.display = 'block';
 			}
 			}
+
 			};
 function toogle(id) {
-		// window.location.href = 'skp:get_t@'+ "criar.js toogle  id  "+id ;
+		window.location = "skp:teste@script.js toggle id "+id;
 		var x = document.getElementById(id);
 	 
 		if (x.style.display === 'none') {
@@ -61,12 +63,10 @@ function toogle(id) {
 			if (z.style.display !== 'none') {
 			 z.style.display = 'none';       
 		}
-		// window.location.href = 'skp:update@'+ id;
 		}
-		// window.location.href = 'skp:get_t@'+ "criar.js toogle ________________________";
 		};
 function setthumbnail(path){
-	// window.location.href = 'skp:get_t@' +"setthumbnail  path "+ path;    
+	window.location = "skp:teste@script.js toggle id "+id;    
 
 		document.getElementById("id|img|Criar").src=path;
 		document.getElementById("id|img|thumbnail").src=path;
