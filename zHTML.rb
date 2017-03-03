@@ -434,14 +434,14 @@ def Webdialog()
 		arquivar.Access_Update(@hash1,"config")
 		end
 		}
-@my_dialog.add_action_callback("get_fabricar"){|web_dialog1,retorno|
-	puts "html.rb get_fabricar #{retorno}"
-	if @modo != "iniciar"
-	input=@input.join("|")
-	@my_dialog.execute_script("getelement('"+ input +"')")
-				Criacao.new(retorno,@hash1)
-		end
-		}
+# @my_dialog.add_action_callback("get_fabricar"){|web_dialog1,retorno|
+# 	puts "html.rb get_fabricar #{retorno}"
+# 	if @modo != "iniciar"
+# 	input=@input.join("|")
+# 	@my_dialog.execute_script("getelement('"+ input +"')")
+# 				Criacao.new(retorno,@hash1)
+# 		end
+# 		}
 @my_dialog.add_action_callback("set_leg"){|web_dialog1,retorno|
 		puts "html.rb set_leg #{retorno}"
 		if @modo != "iniciar"
@@ -457,77 +457,77 @@ def Webdialog()
 	puts "html.rb get_perfil  #{retorno.inspect}"	
 		Sketchup.active_model.select_tool Perfil.new(retorno)
 			}
-@my_dialog.add_action_callback("get_thumbnail"){|web_dialog1,retorno|
-	puts "html.rb get_thumbnail  #{retorno.inspect}"	
-		ADM::Thumbnail.New(@path_thumbnail)
-			}
+# @my_dialog.add_action_callback("get_thumbnail"){|web_dialog1,retorno|
+# 	puts "html.rb get_thumbnail  #{retorno.inspect}"	
+# 		ADM::Thumbnail.New(@path_thumbnail)
+# 			}
 @my_dialog.add_action_callback("get_dimencao"){|web_dialog1,retorno|
 	puts "html.rb get_dimencao   #{retorno.inspect}"	
 		#Sketchup.active_model.select_tool MySelectionObserver.new
 		Sketchup.active_model.select_tool Dimencao.new
 			}
-@my_dialog.add_action_callback("digito"){|web_dialog1,retorno|
-	puts "html.rb digito  #{retorno.inspect}"
-	if @id_retorno != retorno then
-		@id_retorno = retorno 
-		@ret=""
-	end
-	@ret = @my_dialog.get_element_value(@id_retorno)
-	}
-@my_dialog.add_action_callback("faces"){|web_dialog1,retorno|
-	puts "html.rb faces  #{retorno.inspect}"
-	arr = retorno.split("/")
-	str = arr.pop
-	arr_str = str.split(".")
-	arq = arr_str[0]+".skp|suport"
-	arr_path = []
-	arr.each{|pasta|
-		if pasta == "Img" then 
-			arr_path << "Suport"
-		else
-			arr_path << pasta
-		end
-	}
-	arr_path << arq
-	perfil = arr_path.join("/")
-	Sketchup.active_model.select_tool Perfil.new(perfil)
-	}
-@my_dialog.add_action_callback("objetos"){|web_dialog1,retorno|
-	puts "html.rb objetos  #{retorno.inspect}"
-	model = Sketchup.active_model
-        show_summary = true
-        status = model.import retorno, show_summary
-	}
-@my_dialog.add_action_callback("material"){|web_dialog1,retorno|
-	puts "html.rb materiais  #{retorno.inspect}"
-	arr = retorno.split("/")
-	arq = arr.last
-	arr_arq = arq.split(".")
+# @my_dialog.add_action_callback("digito"){|web_dialog1,retorno|
+# 	puts "html.rb digito  #{retorno.inspect}"
+# 	if @id_retorno != retorno then
+# 		@id_retorno = retorno 
+# 		@ret=""
+# 	end
+# 	@ret = @my_dialog.get_element_value(@id_retorno)
+# 	}
+# @my_dialog.add_action_callback("faces"){|web_dialog1,retorno|
+# 	puts "html.rb faces  #{retorno.inspect}"
+# 	arr = retorno.split("/")
+# 	str = arr.pop
+# 	arr_str = str.split(".")
+# 	arq = arr_str[0]+".skp|suport"
+# 	arr_path = []
+# 	arr.each{|pasta|
+# 		if pasta == "Img" then 
+# 			arr_path << "Suport"
+# 		else
+# 			arr_path << pasta
+# 		end
+# 	}
+# 	arr_path << arq
+# 	perfil = arr_path.join("/")
+# 	Sketchup.active_model.select_tool Perfil.new(perfil)
+# 	}
+# @my_dialog.add_action_callback("objetos"){|web_dialog1,retorno|
+# 	puts "html.rb objetos  #{retorno.inspect}"
+# 	model = Sketchup.active_model
+#         show_summary = true
+#         status = model.import retorno, show_summary
+# 	}
+# @my_dialog.add_action_callback("material"){|web_dialog1,retorno|
+# 	puts "html.rb materiais  #{retorno.inspect}"
+# 	arr = retorno.split("/")
+# 	arq = arr.last
+# 	arr_arq = arq.split(".")
 
-	model = Sketchup.active_model
-	materials=model.materials
-	m = materials.add arr_arq[0]
-    m.texture = retorno
-    texture = m.texture
-	filename = texture.filename
-	imageheight = texture.image_height
-	height = texture.height
-	imagewidth1 = texture.image_width
-	imagewidth = texture.width
-	width_height = texture.size = [imagewidth1/10,imageheight/10]
-	puts "imagewidth  #{imagewidth}   imagewidth1  #{imagewidth1}"
-	puts "imageheight  #{imageheight}   height  #{height}"
-	puts "texture    #{texture}"
-	alpha = m.alpha
-	#m.alpha = 0.5
-	h, l, s = m.colorize_deltas
-	type = m.colorize_type
-	type1 = m.materialType
+# 	model = Sketchup.active_model
+# 	materials=model.materials
+# 	m = materials.add arr_arq[0]
+#     m.texture = retorno
+#     texture = m.texture
+# 	filename = texture.filename
+# 	imageheight = texture.image_height
+# 	height = texture.height
+# 	imagewidth1 = texture.image_width
+# 	imagewidth = texture.width
+# 	width_height = texture.size = [imagewidth1/10,imageheight/10]
+# 	puts "imagewidth  #{imagewidth}   imagewidth1  #{imagewidth1}"
+# 	puts "imageheight  #{imageheight}   height  #{height}"
+# 	puts "texture    #{texture}"
+# 	alpha = m.alpha
+# 	#m.alpha = 0.5
+# 	h, l, s = m.colorize_deltas
+# 	type = m.colorize_type
+# 	type1 = m.materialType
 
-	puts "alpha  #{alpha}   type  #{type}     type1  #{type1}"
-	puts "h  #{h}   l  #{l}   s  #{s}"
+# 	puts "alpha  #{alpha}   type  #{type}     type1  #{type1}"
+# 	puts "h  #{h}   l  #{l}   s  #{s}"
 	
-	}
+# 	}
 @my_dialog.add_action_callback("Getmateriais"){|web_dialog1,retorno|
 	puts "html.rb Getmateriais--|#{retorno.inspect}"
 	ADM::Model.New()

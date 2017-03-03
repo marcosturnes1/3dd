@@ -86,7 +86,7 @@ class Html
 		
 		model = Sketchup.active_model
 		layers = model.layers
-		layers.each{|lay| @arr_layer<<lay.name}
+		layers.each{|lay| @arr_layer<<[lay.name,"Layer"]}
 
 		@materiais= Dados::Pastas.List("Materiais")
 		@faces = Dados::Pastas.List("Faces")
@@ -129,30 +129,107 @@ def Webdialog()
 			else
 			    WIN ? @dialog.show : @dialog.show_modal
 			end
-		puts "=========================================="
-		@pastas.each{|path|	@dialog.execute_script("criarpg("+ path.inspect + ")")}
-		puts "=========================================="
-		
-		@dialog.execute_script("criardropdown("+@arr_layer.to_s+ ")")
-
+		@pastas.each{|path|	@dialog.execute_script("pag("+ path.inspect + ")")}		
+		@dialog.execute_script("esp("+@list_esp.to_s+ ")")
+		@dialog.execute_script("config("+@list_config.to_s+ ")")
+		@dialog.execute_script("criar("+@path_img_padrao.inspect+ ")")
+		@arr_layer.each{|arr|@dialog.execute_script("dropdown("+arr.to_s+ ")")}
 
 		@dialog.execute_script("display("+ @pg_inicio.to_s+ ")")
 		@dialog.execute_script("toogle("+@menu.inspect+ ")")
-		@dialog.execute_script("criarbtesp("+@list_esp.to_s+ ")")
-		@dialog.execute_script("criarconfig("+@list_config.to_s+ ")")
-
+		
 		
 	@modo = "uso"
 	end
 	}
 
+	@dialog.add_action_callback("digito"){|dialog,ret|
+		puts "html.rb digito  #{ret.inspect}"
+		if @id_retorno != ret then
+			@id_retorno = ret 
+			@ret=""
+		end
+		@ret = @dialog.get_element_value(@id_retorno)
+		}
+	@dialog.add_action_callback("faces"){|dialog,ret|
+		puts "html.rb faces  #{ret.inspect}"
+		arr = ret.split("/")
+		str = arr.pop
+		arr_str = str.split(".")
+		arq = arr_str[0]+".skp|suport"
+		arr_path = []
+		arr.each{|pasta|
+			if pasta == "Img" then 
+				arr_path << "Suport"
+			else
+				arr_path << pasta
+			end
+		}
+		arr_path << arq
+		perfil = arr_path.join("/")
+		Sketchup.active_model.select_tool Perfil.new(perfil)
+		}
+	@dialog.add_action_callback("obj"){|dialog,ret|
+		puts "html.rb objetos  #{ret.inspect}"
+		model = Sketchup.active_model
+	        show_summary = true
+	        status = model.import ret, show_summary
+		}
+	@dialog.add_action_callback("obj_perf"){|dialog,ret|
+		puts "html.rb objetos perfurantes  #{ret.inspect}"
+		model = Sketchup.active_model
+	        show_summary = true
+	        status = model.import ret, show_summary
+		}	
+	@dialog.add_action_callback("material"){|dialog,ret|
+		puts "html.rb materiais  #{ret.inspect}"
+		arr = retorno.split("/")
+		arq = arr.last
+		arr_arq = arq.split(".")
+
+		model = Sketchup.active_model
+		materials=model.materials
+		m = materials.add arr_arq[0]
+	    m.texture = retorno
+	    texture = m.texture
+		filename = texture.filename
+		imageheight = texture.image_height
+		height = texture.height
+		imagewidth1 = texture.image_width
+		imagewidth = texture.width
+		width_height = texture.size = [imagewidth1/10,imageheight/10]
+		# puts "imagewidth  #{imagewidth}   imagewidth1  #{imagewidth1}"
+		# puts "imageheight  #{imageheight}   height  #{height}"
+		# puts "texture    #{texture}"
+		alpha = m.alpha
+		#m.alpha = 0.5
+		h, l, s = m.colorize_deltas
+		type = m.colorize_type
+		type1 = m.materialType
+
+		# puts "alpha  #{alpha}   type  #{type}     type1  #{type1}"
+		# puts "h  #{h}   l  #{l}   s  #{s}"
+		
+		}
+	@dialog.add_action_callback("fabricar"){|dialog,ret|
+		puts "html.rb get_fabricar #{ret}"
+		if @modo != "iniciar"
+		input=@input.join("|")
+		@my_dialog.execute_script("getelement('"+ input +"')")
+				Criacao.new(ret,@hash1)
+		end
+		}
+	@dialog.add_action_callback("thumbnail"){|dialog,ret|
+		puts "html.rb thumbnail  #{ret.inspect}"	
+		ADM::Thumbnail.New(@path_thumbnail)
+		}	
+
+
+
 	@dialog.add_action_callback("teste"){|web_dialog1,retorno|
 		puts "|T|--|#{retorno.inspect}"
 		}
 	#@dialog.add_action_callback("list_img"){|dialog,ret| @list_img<<ret}
-
-
-
 
 	@dialog.set_file(Sketchup.find_support_file "index.html" ,"Plugins/3dd")
 	RUBY_PLATFORM =~ /(darwin)/ ? @dialog.show_modal() : @dialog.show()
