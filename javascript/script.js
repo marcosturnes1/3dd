@@ -16,41 +16,44 @@ function callback(name, data) {
 		window.location = "skp:objetos@" + name;
 	}, 0);
 	};
-function toogle(id) {
-		window.location = "skp:teste@script.js toggle id "+id;
-		var x = document.getElementById(id);
-	 
-		if (x.style.display === 'none') {
-				x.style.display = 'block';
-		} else {
-				x.style.display = 'none';
-		}
-		if (id=="id|div|Pagina"){
-		var input = document.getElementById("id|input|Criar|Legenda");
-		input.setAttribute("value","");
-		var y = document.getElementById("id|div|Legenda");
-			if (!y.style.display !== 'none') {
-				y.style.display = 'none';
-		}
-		
-		}
-		if ((id=="id|div|Legenda")||(id=="id|div|Pagina")){
-		var input = document.getElementById("id|input|Criar|Button");
-		input.setAttribute("value","");
-		var w = document.getElementById("id|div|Button");
-			if (!w.style.display !== 'none') {
-				w.style.display = 'none';
-		}
-		
-		}
-		if ((id=="id|div|Button")||(id=="id|div|Legenda")||(id=="id|div|Pagina")){
-		var input = document.getElementById("id|input|Criar|Arquivo");
-		input.setAttribute("value","");
-		var z = document.getElementById("id|div|Arquivo");
-			if (z.style.display !== 'none') {
-			 z.style.display = 'none';       
-		}
-		}
+function toggle(id) {
+	window.location = "skp:teste@script.js toggle id "+id;
+	var id_block=[];
+
+	switch(id) {
+    case 'id|div|Layer':
+        	id_block.push(id)
+        break;
+    case 'menu':
+        id_block.push(id)
+        break;       
+    default: 
+    	var pai=document.getElementById(id).parentElement;
+    	var id_pai=pai.getAttribute("id");
+    	var filho= pai.children; 
+		for (var i = 0; i < filho.length; i++) {			
+			var id_filho=filho[i].getAttribute("id");
+			var arr=id_filho.split("|")
+		    	if (!((arr[1]=="h2")||(arr[1]=="a")||(arr[1]=="div1")||(arr[1]=="fieldset"))){
+		    		id_block.push(id_filho)
+			    }
+		    }//for
+		}//case		
+
+		for (var i = 0; i < id_block.length; i++) {	
+
+			if (id_block[i]==id){				
+				var ele=document.getElementById(id_block[i])				
+				if ((ele.style.display=="none")||(ele.style.display=="")){		
+					ele.style.display='block';
+				}else{ele.style.display='none';}
+			}else{				
+				var ele=document.getElementById(id_block[i])
+								
+				ele.style.display='none';
+			}
+			}//for
+		window.location = "skp:teste@_________________________________________";
 		};
 function setthumbnail(path){
 	window.location = "skp:teste@script.js toggle id "+id;    
@@ -60,18 +63,17 @@ function setthumbnail(path){
 		// sleep(2000);
 		// window.location.href = 'skp:get_t@' +"setthumbnail  ________________________ ";
 		};
-function paginas(str) {
-	 window.location.href = 'skp:paginas@' + str;
-	 };
-
-
-
-
-
-//estao em testes
-function getmat(action) {
-	window.location.href = 'skp:teste@script.js getmat action' + action;
-	};
-function getdisplay(str) {
-	window.location.href = 'skp:teste@script.js getdisplay str'+str ;
-	};
+function digito(id){
+		var input = document.getElementById(id);
+		var valor = input.innerHTML
+		window.location.href = 'skp:digito@' + id;
+		};
+function img(action) {
+	window.location.href = 'skp:img@' + action;
+	};		
+function material(str){
+			window.location.href = 'skp:material@' + str;
+			};	
+function thumbnail(str){
+			window.location.href = 'skp:thumbnail@' + str;
+			};

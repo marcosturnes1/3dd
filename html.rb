@@ -1,7 +1,7 @@
 
 
 require 'sketchup.rb'
-#require_relative 'adm.rb'
+require_relative 'adm.rb'
 require_relative 'dados.rb'
 
 
@@ -16,10 +16,10 @@ class Html
 		@nome_comp = [];@layer = [];@pgs = []
 		@arr_toggle = ["menu","id|ul|menu|Materiais","id|ul|menu|Faces",
 			"id|ul|menu|Objetos","id|ul|menu|Objetos_Perfurantes","id|div|Layer"]
-		@paginas = [];
+		@paginas = [];@list_img = []
 
 
-
+		@path_dinamic =__dir__+"/icones/temp/dinamic.skp"
 		@path_thumbnail =__dir__+"/icones/temp/thumbnail.png"
 		@path_img_padrao=__dir__+"/icones/temp/padrao.png"
 
@@ -139,13 +139,13 @@ def Webdialog()
 		@dialog.execute_script("config("+@list_config.to_s+ ")")
 		@dialog.execute_script("criar("+@path_img_padrao.inspect+ ")")
 		@arr_layer.each{|arr|@dialog.execute_script("dropdown("+arr.to_s+ ")")}		
-		@paginas.each{|str|@dialog.execute_script("toogle("+str.inspect+ ")")}
-		@arr_toggle.each{|str|@dialog.execute_script("toogle("+str.inspect+ ")")}
+		@paginas.each{|str|@dialog.execute_script("toggle("+str.inspect+ ")")}
+		@arr_toggle.each{|str|@dialog.execute_script("toggle("+str.inspect+ ")")}
 		
 		@modo = "uso"
 		end
 		}
-	@dialog.add_action_callback("paginas"){|dialog,ret|	@paginas<<ret}
+	#@dialog.add_action_callback("paginas"){|dialog,ret|	@paginas<<ret}
 	@dialog.add_action_callback("digito"){|dialog,ret|
 		puts "html.rb digito  #{ret.inspect}"
 		if @id_retorno != ret then
@@ -186,33 +186,7 @@ def Webdialog()
 		}	
 	@dialog.add_action_callback("material"){|dialog,ret|
 		puts "html.rb materiais  #{ret.inspect}"
-		arr = retorno.split("/")
-		arq = arr.last
-		arr_arq = arq.split(".")
-
-		model = Sketchup.active_model
-		materials=model.materials
-		m = materials.add arr_arq[0]
-	    m.texture = retorno
-	    texture = m.texture
-		filename = texture.filename
-		imageheight = texture.image_height
-		height = texture.height
-		imagewidth1 = texture.image_width
-		imagewidth = texture.width
-		width_height = texture.size = [imagewidth1/10,imageheight/10]
-		# puts "imagewidth  #{imagewidth}   imagewidth1  #{imagewidth1}"
-		# puts "imageheight  #{imageheight}   height  #{height}"
-		# puts "texture    #{texture}"
-		alpha = m.alpha
-		#m.alpha = 0.5
-		h, l, s = m.colorize_deltas
-		type = m.colorize_type
-		type1 = m.materialType
-
-		# puts "alpha  #{alpha}   type  #{type}     type1  #{type1}"
-		# puts "h  #{h}   l  #{l}   s  #{s}"
-		
+		ADM::Texture.New(ret)				
 		}
 	@dialog.add_action_callback("fabricar"){|dialog,ret|
 		puts "html.rb get_fabricar #{ret}"
@@ -223,18 +197,64 @@ def Webdialog()
 		end
 		}
 	@dialog.add_action_callback("thumbnail"){|dialog,ret|
-		puts "html.rb thumbnail  #{ret.inspect}"	
-		ADM::Thumbnail.New(@path_thumbnail)
+		puts "html.rb thumbnail  #{ret.inspect}"
+		model = Sketchup.active_model
+        status = model.import @path_dinamic, true
 		}	
 
+
+	@dialog.add_action_callback("img"){|dialog,ret|
+		puts "html.rb img ret #{ret}"
+		@del_list=[]
+		@list_img.each{|path|
+			arr = path.split("/")
+			comp = arr.length
+	      	pg=arr[comp-4];
+
+	      	arr1=ret.split("|")
+	      	pg1=arr1[1]
+
+	      	if pg == pg1 then 
+	      		@dialog.execute_script("deletimg("+path.inspect+ ")")
+	      		@del_list<<path
+	      	end
+	      }
+	      @del_list.each{|path|	@list_img.delete(path)}
+		@pastas.each{|path|
+			arr=path.split("/")
+			comp=arr.length
+			ck=arr[comp-5]+"|"+arr[comp-4]+"|"+arr[comp-3]+"|"+arr[comp-2]
+		if ck==ret then
+			@dialog.execute_script("criarimg("+path.inspect+ ")")
+		end
+		}
+		}
+
+
+	
+	@dialog.add_action_callback("list_img"){|dialog,ret| @list_img<<ret}
 
 
 	@dialog.add_action_callback("teste"){|web_dialog1,retorno|
 		puts "|T|--|#{retorno.inspect}"
 		}
-	#@dialog.add_action_callback("list_img"){|dialog,ret| @list_img<<ret}
 
 	@dialog.set_file(Sketchup.find_support_file "index.html" ,"Plugins/3dd")
 	RUBY_PLATFORM =~ /(darwin)/ ? @dialog.show_modal() : @dialog.show()
 	end
+
+def SetLayer(layer)
+	puts "==================stelayer++++++++++++#{layer}"
+	arr_bt = "id|input|Menu|Layer|"+layer
+	@my_dialog.execute_script("setdropdown("+arr_bt.inspect+ ")")
+	end
+def RemoveLayer(layer)
+	arr_bt = [layer,"Layer"]
+	@my_dialog.execute_script("deletedropdown("+arr_bt.to_s+ ")")
+	end
+def AddLayer(layer)
+	arr_bt = [layer,"Layer"]
+	@my_dialog.execute_script("adddropdown("+arr_bt.to_s+ ")")
+	end
+
 end
